@@ -7,6 +7,19 @@ import shutil
 import importlib
 import collect_config
 
+def start_at(asset_path):
+    for root, dirs, files in os.walk(asset_path):
+        sift_files(files, root)
+        for dir in dirs:
+            sift_files(os.listdir(dir), dir)
+
+def sift_files(files, in_dir):
+    for file in files:
+        path_to_image = os.path.join(in_dir, file)
+        image = open_image(path_to_image)
+        if image != None: sift_image(image, path_to_image, os.getcwd())
+        else: print(str(file) + ' is not an image file.')
+
 def open_image(path_to_image):
     try:
         return Image.open(path_to_image)
@@ -22,19 +35,6 @@ def sift_image(image, copy_from_file, copy_to_dir):
         print('From: ' + copy_from_file)
         print('Created: ' + name + ' (' + str(width) + 'x' + str(height) + ')')
 
-def sift_files(files, in_dir):
-    for file in files:
-        path_to_image = os.path.join(in_dir, file)
-        image = open_image(path_to_image)
-        if image != None: sift_image(image, path_to_image, os.getcwd())
-        else: print(str(file) + ' is not an image file.')
-
-def start_at(asset_path):
-    for root, dirs, files in os.walk(asset_path):
-        sift_files(files, root)
-        for dir in dirs:
-            sift_files(os.listdir(dir), dir)
-
 def get_config_path():
     try:
         print('Collect from:' + collect_config.collect_from)
@@ -46,6 +46,5 @@ def get_config_path():
         input('Is this ok? If so, press any key to continue')
         return os.getcwd()
 
-# get_config_path()
 start_at(get_config_path())
 input('Done! Press any key to quit')
