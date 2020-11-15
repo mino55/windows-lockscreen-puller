@@ -31,10 +31,13 @@ Grabs the lockscreen images from within windows.
   // Height below which images will be discarded
   minHeight: 500,
 
+  // Discard images that has the same height and width since they're definitely not wallpapers
+  discardSquares: true,
+
   // Automatically discards duplicate wallpapers after collecting new wallpapers
   autoRemoveDuplicates: true,
 
-  // Move discarded wallpapers to a discard folder instead of removing them
+  // Move discarded images to a discard folder instead of removing them
   saveDiscarded: true,
 
   // The path where discarded wallpapers will be moved
