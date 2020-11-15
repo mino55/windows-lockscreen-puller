@@ -1,0 +1,10 @@
+{
+  "assetsPath": "\\AppData\\Local\\Packages\\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\\LocalState\\Assets",
+  "desktopPath": "./desktop/",
+  "mobilePath": "./mobile/",
+  "minWidth": 500,
+  "minHeight": 500,
+  "autoRemoveDuplicates": true,
+  "saveDiscarded": true,
+  "discardPath": "./discarded/"
+}

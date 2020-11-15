@@ -8,17 +8,34 @@ import importlib
 from os.path import expanduser
 import pathlib
 from pathlib import PurePosixPath
+import json
 
 HOME = expanduser("~")
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
-COLLECT_CONFIG_PATH = os.path.join(SCRIPT_DIR, 'config.txt')
+COLLECT_CONFIG_PATH = os.path.join(SCRIPT_DIR, 'config.json')
 CONFIG = {
-  "assetPath": None,
+  "assetsPath": None,
+  "desktopPath": None,
+  "mobilePath": None,
+  "minWidth": None,
+  "minHeight": None,
+  "autoRemoveDuplicates": None,
+  "saveDiscarded": None,
+  "discardPath": None
 }
 
 def read_config():
   with open(COLLECT_CONFIG_PATH, 'r') as file:
-    CONFIG["assetPath"] = HOME + file.read().replace('\n', '')
+    json_str = file.read().replace('\n', '')
+    loaded_config = json.loads(json_str)
+    CONFIG["assetsPath"] = HOME + loaded_config["assetsPath"]
+    CONFIG["desktopPath"] = loaded_config["desktopPath"]
+    CONFIG["mobilePath"] = loaded_config["mobilePath"]
+    CONFIG["minWidth"] = loaded_config["minWidth"]
+    CONFIG["minHeight"] = loaded_config["minHeight"]
+    CONFIG["autoRemoveDuplicates"] = loaded_config["autoRemoveDuplicates"]
+    CONFIG["saveDiscarded"] = loaded_config["saveDiscarded"]
+    CONFIG["discardPath"] = loaded_config["discardPath"]
 
 def start_at(asset_path):
     for root, dirs, files in os.walk(asset_path):
@@ -41,7 +58,7 @@ def open_image(path_to_image):
 
 def sift_image(image, copy_from_path, copy_to_dir):
     width, height = image.size
-    if width > 500 and height > 500:
+    if width > CONFIG["minWidth"] and height > CONFIG["minHeight"]:
         name = str(date.today()) + '-' + str(uuid.uuid4()) + '.jpg'
         copy_to_path = os.path.join(copy_to_dir, name)
         shutil.copy(copy_from_path, copy_to_path)
@@ -52,11 +69,11 @@ def sift_image(image, copy_from_path, copy_to_dir):
 
 def get_config_path():
     try:
-        print('Collect from: ' + CONFIG["assetPath"])
+        print('Collect from: ' + CONFIG["assetsPath"])
         print('Collect to: ' +  SCRIPT_DIR)
         input('Is this ok? If so, press any key to continue')
         print('--- --- --- --- ---')
-        return CONFIG["assetPath"]
+        return CONFIG["assetsPath"]
     except:
         print('WARNING: Collect_from inside of collect_config.py not found')
 
