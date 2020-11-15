@@ -6,6 +6,10 @@ from datetime import date
 import shutil
 import importlib
 import collect_config
+from os.path import expanduser
+
+HOME = expanduser("~")
+ASSET_PATH = HOME + collect_config.collect_from
 
 def start_at(asset_path):
     for root, dirs, files in os.walk(asset_path):
@@ -26,25 +30,26 @@ def open_image(path_to_image):
     except:
         return None
 
-def sift_image(image, copy_from_file, copy_to_dir):
+def sift_image(image, copy_from_path, copy_to_dir):
     width, height = image.size
     if width > 500 and height > 500:
         name = str(date.today()) + '-' + str(uuid.uuid4()) + '.jpg'
-        copy_to_file = os.path.join(copy_to_dir, name)
-        shutil.copy(copy_from_file, copy_to_file)
-        print('From: ' + copy_from_file)
+        copy_to_path = os.path.join(copy_to_dir, name)
+        shutil.copy(copy_from_path, copy_to_path)
+        print('From: ' + copy_from_path)
         print('Created: ' + name + ' (' + str(width) + 'x' + str(height) + ')')
 
 def get_config_path():
     try:
-        print('Collect from:' + collect_config.collect_from)
+        print('Collect from:' + ASSET_PATH)
         input('Is this ok? If so, press any key to continue')
-        return collect_config.collect_from
+        return ASSET_PATH
     except:
         print('WARNING: Collect_from inside of collect_config.py not found')
         print('Collect from: ' + os.getcwd())
         input('Is this ok? If so, press any key to continue')
         return os.getcwd()
+
 
 start_at(get_config_path())
 input('Done! Press any key to quit')
