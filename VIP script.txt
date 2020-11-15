@@ -1,6 +1,0 @@
-For each file in the asset folder:
-* If it's extension is not png, change it to png.
-* If it's one size put it in "desktop_wallpappers" dir
-* If it's another size put it in "mobile_wallpapers" dir
-* For any other size; put it in "trash" die
-* Make this script autorun every new day.

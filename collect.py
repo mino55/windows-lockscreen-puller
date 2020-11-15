@@ -12,14 +12,13 @@ from pathlib import PurePosixPath
 HOME = expanduser("~")
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 COLLECT_CONFIG_PATH = os.path.join(SCRIPT_DIR, 'config.txt')
+CONFIG = {
+  "assetPath": None,
+}
 
 def read_config():
   with open(COLLECT_CONFIG_PATH, 'r') as file:
-    data = file.read().replace('\n', '')
-    return data
-
-
-ASSET_PATH = HOME + read_config()
+    CONFIG["assetPath"] = HOME + file.read().replace('\n', '')
 
 def start_at(asset_path):
     for root, dirs, files in os.walk(asset_path):
@@ -53,14 +52,15 @@ def sift_image(image, copy_from_path, copy_to_dir):
 
 def get_config_path():
     try:
-        print('Collect from: ' + ASSET_PATH)
+        print('Collect from: ' + CONFIG["assetPath"])
         print('Collect to: ' +  SCRIPT_DIR)
         input('Is this ok? If so, press any key to continue')
         print('--- --- --- --- ---')
-        return ASSET_PATH
+        return CONFIG["assetPath"]
     except:
         print('WARNING: Collect_from inside of collect_config.py not found')
 
 
+read_config()
 start_at(get_config_path())
 input('Done! Press any key to quit')
