@@ -4,6 +4,7 @@
   "mobilePath": "./mobile/",
   "minWidth": 500,
   "minHeight": 500,
+  "discardSquares": true,
   "autoRemoveDuplicates": true,
   "saveDiscarded": true,
   "discardPath": "./discarded/"
