@@ -86,7 +86,9 @@ def save_image(image, copy_from_path, copy_to_dir):
 def get_config_path():
     try:
         print('Collect from: ' + CONFIG["assetsPath"])
-        print('Collect to: ' +  CONFIG["scriptDir"])
+        print('Collection root directory: ' + CONFIG["scriptDir"])
+        print('Collect desktop images to: ' +  CONFIG["desktopPath"])
+        print('Collect mobile images to: ' +  CONFIG["mobilePath"])
         input('Is this ok? If so, press any key to continue')
         print('--- --- --- --- ---')
         return CONFIG["assetsPath"]
