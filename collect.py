@@ -7,20 +7,13 @@ import shutil
 import importlib
 
 from read_config import get_config
+from remove_duplicate_images import remove_duplicates
 
 CONFIG = get_config()
 
 class ImageFormat:
     DESKTOP = "desktop"
     MOBILE = "mobile"
-
-def setup_dirs():
-    desktop_path = CONFIG["desktopPath"]
-    mobile_path = CONFIG["mobilePath"]
-    if not os.path.exists(desktop_path):
-        os.mkdir(desktop_path)
-    if not os.path.exists(mobile_path):
-        os.mkdir(mobile_path)
 
 def start_at(asset_path):
     for root, dirs, files in os.walk(asset_path):
@@ -100,6 +93,6 @@ def get_config_path():
     except:
         print('WARNING: Collect_from inside of collect_config.py not found')
 
-setup_dirs()
 start_at(get_config_path())
+remove_duplicates()
 input('Done! Press any key to quit')

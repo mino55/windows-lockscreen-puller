@@ -31,6 +31,18 @@ def read_config():
         CONFIG["discardPath"] = loaded_config["discardPath"]
         CONFIG["scriptDir"] = SCRIPT_DIR
 
+def setup_dirs():
+    desktop_path = CONFIG["desktopPath"]
+    mobile_path = CONFIG["mobilePath"]
+    discard_path = CONFIG["discardPath"]
+    if not os.path.exists(desktop_path):
+        os.mkdir(desktop_path)
+    if not os.path.exists(mobile_path):
+        os.mkdir(mobile_path)
+    if CONFIG["saveDiscarded"] and not os.path.exists(discard_path):
+        os.mkdir(discard_path)
+
 def get_config():
     read_config()
+    setup_dirs()
     return CONFIG
