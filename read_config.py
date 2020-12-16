@@ -21,14 +21,14 @@ def read_config():
         json_str = file.read().replace('\n', '')
         loaded_config = json.loads(json_str)
         CONFIG["assetsPath"] =  HOME + loaded_config["assetsPath"]
-        CONFIG["desktopPath"] = loaded_config["desktopPath"]
-        CONFIG["mobilePath"] = loaded_config["mobilePath"]
+        CONFIG["desktopPath"] = SCRIPT_DIR + loaded_config["desktopPath"]
+        CONFIG["mobilePath"] = SCRIPT_DIR + loaded_config["mobilePath"]
         CONFIG["minWidth"] = loaded_config["minWidth"]
         CONFIG["minHeight"] = loaded_config["minHeight"]
         CONFIG["discardSquares"] = loaded_config["discardSquares"]
         CONFIG["autoRemoveDuplicates"] = loaded_config["autoRemoveDuplicates"]
         CONFIG["saveDiscarded"] = loaded_config["saveDiscarded"]
-        CONFIG["discardPath"] = loaded_config["discardPath"]
+        CONFIG["discardPath"] = SCRIPT_DIR + loaded_config["discardPath"]
         CONFIG["scriptDir"] = SCRIPT_DIR
 
 def setup_dirs():
